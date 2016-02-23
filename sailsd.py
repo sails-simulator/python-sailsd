@@ -29,3 +29,7 @@ class Sailsd(object):
         s = json.dumps(msg).encode()
         ret = self._send_message_bytes(s)
         return json.loads(ret.decode('utf-8'))
+
+    def request(self, *attributes):
+        '''Request one or more attributes'''
+        return self._send_message_dict({'request': attributes})
