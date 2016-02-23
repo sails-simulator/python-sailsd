@@ -5,7 +5,7 @@ class Sailsd(object):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect(('localhost', 3333))
 
-        response = ''
+        response = b''
 
         try:
             s.sendall(msg)
