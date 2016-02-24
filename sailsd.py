@@ -33,3 +33,6 @@ class Sailsd(object):
     def request(self, *attributes):
         '''Request one or more attributes'''
         return self._send_message_dict({'request': attributes})
+
+    def set(self, **kwargs):
+        return self._send_message_dict({'set': kwargs})
