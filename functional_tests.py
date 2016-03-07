@@ -27,6 +27,11 @@ class TestSailsdAPI(unittest.TestCase):
         self.assertTrue('sail-angle' in r)
         self.assertTrue(isinstance(r.get('sail-angle'), float))
 
+    def test_heading(self):
+        r = sailsd.request('heading')
+        self.assertTrue('heading' in r)
+        self.assertTrue(isinstance(r.get('heading'), float))
+
 #print(sailsd.set(x=5, y=10))
 
 if __name__ == '__main__':
