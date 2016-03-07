@@ -32,6 +32,22 @@ class TestSailsdAPI(unittest.TestCase):
         self.assertTrue('heading' in r)
         self.assertTrue(isinstance(r.get('heading'), float))
 
+    def test_rudder_angle(self):
+        r = sailsd.request('rudder-angle')
+        self.assertTrue('rudder-angle' in r)
+        self.assertTrue(isinstance(r.get('rudder-angle'), float))
+
+    def test_request_all(self):
+        attrs = ['version',
+                 'latitude',
+                 'longitude',
+                 'sail-angle',
+                 'heading',
+                 'rudder-angle',
+                ]
+        r = sailsd.request(*attrs)
+        self.assertTrue(all([a in r for a in attrs]))
+
 #print(sailsd.set(x=5, y=10))
 
 if __name__ == '__main__':
