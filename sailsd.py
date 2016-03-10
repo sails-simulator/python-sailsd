@@ -35,4 +35,5 @@ class Sailsd(object):
         return self._send_message_dict({'request': attributes})
 
     def set(self, **kwargs):
-        return self._send_message_dict({'set': kwargs})
+        set_values = {k.replace('_', '-'):v for k, v in kwargs.items()}
+        return self._send_message_dict({'set': set_values})
