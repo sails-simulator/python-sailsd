@@ -4,7 +4,7 @@ class Boat(object):
     attrs = (
               'latitude',
               'longitude',
-              'angle',
+              'heading',
               'rudder-angle',
               'sail-angle',
             )
@@ -13,6 +13,7 @@ class Boat(object):
         self.sailsd = sailsd or Sailsd()
         self.latitude = 0
         self.longitude = 0
+        self.update()
 
     def update(self):
         '''Read attributes from sailsd and update values'''
@@ -20,3 +21,6 @@ class Boat(object):
         for a in self.attrs:
             v = res.get(a)
             setattr(self, a, v)
+
+        self.x = self.longitude
+        self.y = self.latitude
