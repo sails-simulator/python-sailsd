@@ -1,3 +1,5 @@
+import socket
+
 from .sailsd import Sailsd
 
 class Boat(object):
@@ -11,16 +13,27 @@ class Boat(object):
 
     def __init__(self, sailsd=None):
         self.sailsd = sailsd or Sailsd()
-        self.latitude = 0
-        self.longitude = 0
+        self.status = 'not connected'
+
+        for a in self.attrs:
+            setattr(self, a, 0)
+
+        self.x = self.longitude
+        self.y = self.latitude
+
         self.update()
 
     def update(self):
         '''Read attributes from sailsd and update values'''
-        res = self.sailsd.request(*self.attrs)
-        for a in self.attrs:
-            v = res.get(a)
-            setattr(self, a, v)
+        try:
+            res = self.sailsd.request(*self.attrs)
+        except socket.error:
+            self.status = 'not connected'
+        else:
+            self.status = 'connected'
+            for a in self.attrs:
+                v = res.get(a)
+                setattr(self, a, v)
 
-        self.x = self.longitude
-        self.y = self.latitude
+            self.x = self.longitude
+            self.y = self.latitude
