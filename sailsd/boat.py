@@ -12,6 +12,7 @@ class Boat(object):
               'heading',
               'rudder-angle',
               'sail-angle',
+              'speed',
             )
 
     def __init__(self, sailsd=None):
