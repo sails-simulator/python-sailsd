@@ -2,6 +2,9 @@ import socket
 
 from .sailsd import Sailsd
 
+def attributify(s):
+    return s.replace('-', '_')
+
 class Boat(object):
     attrs = (
               'latitude',
@@ -16,7 +19,7 @@ class Boat(object):
         self.status = 'not connected'
 
         for a in self.attrs:
-            setattr(self, a, 0)
+            setattr(self, attributify(a), 0)
 
         self.x = self.longitude
         self.y = self.latitude
@@ -33,7 +36,7 @@ class Boat(object):
             self.status = 'connected'
             for a in self.attrs:
                 v = res.get(a)
-                setattr(self, a, v)
+                setattr(self, attributify(a), v)
 
             self.x = self.longitude
             self.y = self.latitude
