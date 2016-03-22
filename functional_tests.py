@@ -48,7 +48,25 @@ class TestSailsdAPI(unittest.TestCase):
         r = sailsd.request(*attrs)
         self.assertTrue(all([a in r for a in attrs]))
 
-#print(sailsd.set(x=5, y=10))
+class TestSailsdAPIWrite(unittest.TestCase):
+    def test_set_latitude(self):
+        r = sailsd.set(latitude=100)
+        #r = sailsd.set(latitude=100, thing=100, longitude=100)
+        r = sailsd.request('latitude')
+
+    def test_set_latitude_and_longitude(self):
+        r = sailsd.set(latitude=100, longitude=100)
+        r = sailsd.request('latitude', 'longitude')
+
+    def test_set_sail_angle(self):
+        r = sailsd.set(sail_angle=100)
+        r = sailsd.request('sail-angle')
+
+    def test_set_rudder_angle(self):
+        r = sailsd.set(rudder_angle=10)
+        r = sailsd.request('rudder-angle')
+        r = sailsd.set(rudder_angle=-10)
+        r = sailsd.request('rudder-angle')
 
 if __name__ == '__main__':
     unittest.main()
