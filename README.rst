@@ -4,9 +4,12 @@ python-sailsd
 
 A python library to make interacting with the sailsd API easy.
 
+To install::
 
-This also includes some functional tests for the sailsd API. You can run them
-by running ``functional_tests.py``.
+    $ pip install python-sailsd
+
+This repo also includes some functional tests for the sailsd API. You can run
+them by running ``functional_tests.py``.
 
 For prettier output, run these tests with pytest::
 
