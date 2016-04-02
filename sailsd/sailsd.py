@@ -35,7 +35,12 @@ class Sailsd(object):
         return json.loads(ret.decode('utf-8'))
 
     def request(self, *attributes):
-        '''Request one or more attributes'''
+        '''
+        Request one or more attribute from sailsd. These should be the names
+        of each attribute as a string, for example:
+
+            >>> sailsd.request('latitude')
+        '''
         return self._send_message_dict({'request': attributes})
 
     def set(self, **kwargs):
