@@ -22,19 +22,19 @@ class Wind(object):
         self.update()
 
     @property
-    def wind_speed(self):
+    def speed(self):
         return self.values.get('wind-speed')
 
-    @wind_speed.setter
-    def rudder_angle(self, angle):
+    @speed.setter
+    def speed(self, angle):
         self.sailsd.set(wind_speed=angle)
 
     @property
-    def wind_angle(self):
+    def angle(self):
         return self.values.get('wind-angle')
 
-    @wind_angle.setter
-    def rudder_angle(self, angle):
+    @angle.setter
+    def angle(self, angle):
         self.sailsd.set(wind_angle=angle)
 
     def update(self):
