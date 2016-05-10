@@ -7,6 +7,13 @@ def attributify(s):
     return s.replace('-', '_')
 
 class Boat(object):
+    '''
+    A boat sailing on the seas.
+
+    :param sailsd: an instance of `sailsd.Sailsd` to use instead of creating a
+                   new instance
+    :type sailsd: `sailsd.Sailsd`
+    '''
     attrs = (
               'latitude',
               'longitude',
@@ -31,7 +38,7 @@ class Boat(object):
 
         self.update()
 
-    def update_xy(self):
+    def _update_xy(self):
         e_radius = 6378000
         self.x = e_radius * (self.longitude / (180 / math.pi))
         self.y = e_radius * (self.latitude / ((180 / math.pi) /
@@ -39,18 +46,22 @@ class Boat(object):
 
     @property
     def latitude(self):
+        '''Current latitude of the boat'''
         return self.values.get('latitude')
 
     @property
     def longitude(self):
+        '''Current longitude of the boat'''
         return self.values.get('longitude')
 
     @property
     def heading(self):
+        '''Current heading of the boat, measured in radians from the bow'''
         return self.values.get('heading')
 
     @property
     def rudder_angle(self):
+        '''Angle of the rudder, measured in radians where 0 is a straight rudder'''
         return self.values.get('rudder-angle')
 
     @rudder_angle.setter
@@ -59,6 +70,8 @@ class Boat(object):
 
     @property
     def sail_angle(self):
+        '''Angle of the sail, measured in radians where 0 is the sail pulled to
+        the exact center of the boat'''
         return self.values.get('sail-angle')
 
     @sail_angle.setter
@@ -67,10 +80,11 @@ class Boat(object):
 
     @property
     def speed(self):
+        '''Current speed of the boat, measured in meters per second'''
         return self.values.get('speed')
 
     def update(self):
-        '''Read attributes from sailsd and update values'''
+        '''Read attributes from sailsd and update all values'''
         try:
             res = self.sailsd.request(*self.attrs)
         except socket.error:
@@ -79,4 +93,4 @@ class Boat(object):
             self.status = 'connected'
             self.values.update(res)
 
-            self.update_xy()
+            self._update_xy()
