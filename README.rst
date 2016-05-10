@@ -8,6 +8,8 @@ To install::
 
     $ pip install python-sailsd
 
+Documentation: http://python-sailsd.readthedocs.io/
+
 This repo also includes some functional tests for the sailsd API. You can run
 them by running ``functional_tests.py``.
 

@@ -1,7 +1,16 @@
 Welcome to python-sailsd's documentation!
 =========================================
 
-Contents:
+`python-sailsd` is a python library to make interacting with the sailsd API
+easy.
+
+To install::
+
+    $ pip install python-sailsd
+
+
+Brief API overview
+------------------
 
 .. toctree::
    :maxdepth: 2
