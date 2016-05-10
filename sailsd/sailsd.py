@@ -42,7 +42,7 @@ class Sailsd(object):
             >>> sailsd.request('speed')
             {'speed': 4.59422737529291
             >>> sailsd.request('heading', 'latitude')
-            {'heading': 0.7459227808181801, 'latitude': 0.004578511779640966}
+            {'heading': 0.7459227808181, 'latitude': 0.004578511779640}
         '''
         return self._send_message_dict({'request': attributes})
 

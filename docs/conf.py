@@ -21,11 +21,6 @@ import alabaster
 html_theme_path = [alabaster.get_path()]
 extensions = ['alabaster']
 html_theme = 'alabaster'
-html_sidebars = {
-    '**': [
-        'about.html',
-    ]
-}
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the

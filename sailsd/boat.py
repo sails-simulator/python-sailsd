@@ -24,7 +24,7 @@ class Boat(object):
         >>> boat.latitude, boat.longitude
         (0.0009904288095353697, 0.0009966210180718897)
     '''
-    attrs = (
+    _attrs = (
               'latitude',
               'longitude',
               'heading',
@@ -39,7 +39,7 @@ class Boat(object):
 
         self.values = {}
 
-        for a in self.attrs:
+        for a in self._attrs:
             self.values.update({a: 0})
 
         # latitude and longitude approximately projected to an x y meter grid
@@ -106,7 +106,7 @@ class Boat(object):
         date.
             '''
         try:
-            res = self.sailsd.request(*self.attrs)
+            res = self.sailsd.request(*self._attrs)
         except socket.error:
             self.status = 'not connected'
         else:
