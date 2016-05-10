@@ -39,10 +39,33 @@ class Sailsd(object):
         Request one or more attribute from sailsd. These should be the names
         of each attribute as a string, for example:
 
-            >>> sailsd.request('latitude')
+            >>> sailsd.request('speed')
+            {'speed': 4.59422737529291
+            >>> sailsd.request('heading', 'latitude')
+            {'heading': 0.7459227808181801, 'latitude': 0.004578511779640966}
         '''
         return self._send_message_dict({'request': attributes})
 
     def set(self, **kwargs):
+        '''
+        Set attributes in sailsd.
+
+            >>> sailsd.set(rudder_angle=0.2)
+            {}
+            >>> sailsd.set(latitude=0)
+            {}
+
+        The attributes you are likely to be able to set are:
+
+            - ``latitude``
+            - ``longitude``
+            - ``sail-angle``
+            - ``heading``
+            - ``rudder-angle``
+            - ``wind-speed``
+            - ``wind-angle``
+
+        but there could be others.
+        '''
         set_values = {k.replace('_', '-'):v for k, v in kwargs.items()}
         return self._send_message_dict({'set': set_values})
