@@ -1,4 +1,5 @@
 import socket
+import math
 
 from .sailsd import Sailsd
 
@@ -22,10 +23,17 @@ class Boat(object):
         for a in self.attrs:
             setattr(self, attributify(a), 0)
 
-        self.x = self.longitude
-        self.y = self.latitude
+        # latitude and longitude approximately projected to an x y meter grid
+        self.x = 0
+        self.y = 0
 
         self.update()
+
+    def update_xy(self):
+        e_radius = 6378000
+        self.x = e_radius * (self.longitude / (180 / math.pi))
+        self.y = e_radius * (self.latitude / ((180 / math.pi) /
+            math.cos(self.latitude * math.pi/180)))
 
     def update(self):
         '''Read attributes from sailsd and update values'''
@@ -39,5 +47,4 @@ class Boat(object):
                 v = res.get(a)
                 setattr(self, attributify(a), v)
 
-            self.x = self.longitude
-            self.y = self.latitude
+            self.update_xy()
