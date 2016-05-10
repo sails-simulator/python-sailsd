@@ -20,8 +20,10 @@ class Boat(object):
         self.sailsd = sailsd or Sailsd()
         self.status = 'not connected'
 
+        self.values = {}
+
         for a in self.attrs:
-            setattr(self, attributify(a), 0)
+            self.values.update({a: 0})
 
         # latitude and longitude approximately projected to an x y meter grid
         self.x = 0
@@ -35,6 +37,38 @@ class Boat(object):
         self.y = e_radius * (self.latitude / ((180 / math.pi) /
             math.cos(self.latitude * math.pi/180)))
 
+    @property
+    def latitude(self):
+        return self.values.get('latitude')
+
+    @property
+    def longitude(self):
+        return self.values.get('longitude')
+
+    @property
+    def heading(self):
+        return self.values.get('heading')
+
+    @property
+    def rudder_angle(self):
+        return self.values.get('rudder-angle')
+
+    @rudder_angle.setter
+    def rudder_angle(self, angle):
+        self.sailsd.set(rudder_angle=angle)
+
+    @property
+    def sail_angle(self):
+        return self.values.get('sail-angle')
+
+    @sail_angle.setter
+    def sail_angle(self, angle):
+        self.sailsd.set(sail_angle=angle)
+
+    @property
+    def speed(self):
+        return self.values.get('speed')
+
     def update(self):
         '''Read attributes from sailsd and update values'''
         try:
@@ -43,8 +77,6 @@ class Boat(object):
             self.status = 'not connected'
         else:
             self.status = 'connected'
-            for a in self.attrs:
-                v = res.get(a)
-                setattr(self, attributify(a), v)
+            self.values.update(res)
 
             self.update_xy()
