@@ -3,16 +3,26 @@ import math
 
 from .sailsd import Sailsd
 
-def attributify(s):
-    return s.replace('-', '_')
 
 class Boat(object):
     '''
-    A boat sailing on the seas.
+    A merry sailing boat sailing on the seas.
 
-    :param sailsd: an instance of `sailsd.Sailsd` to use instead of creating a
+    :param sailsd: an instance of ``sailsd.Sailsd`` to use instead of creating a
                    new instance
-    :type sailsd: `sailsd.Sailsd`
+    :type sailsd: ``sailsd.Sailsd``
+
+    Some example usage:
+
+        >>> boat = sailsd.Boat()
+        >>> boat.rudder_angle = 0.1
+        >>> boat.update()
+        >>> boat.heading
+        0.758290214606183
+        >>> boat.speed
+        4.6089232392605135
+        >>> boat.latitude, boat.longitude
+        (0.0009904288095353697, 0.0009966210180718897)
     '''
     attrs = (
               'latitude',
@@ -84,7 +94,17 @@ class Boat(object):
         return self.values.get('speed')
 
     def update(self):
-        '''Read attributes from sailsd and update all values'''
+        '''
+        Read attributes from sailsd and update all values. For example:
+
+            >>> boat = sailsd.Boat()
+            >>> boat.update()
+            >>> boat.latitude
+            100.00292426652119
+
+        This should be run just before reading values to ensure they are up to
+        date.
+            '''
         try:
             res = self.sailsd.request(*self.attrs)
         except socket.error:
