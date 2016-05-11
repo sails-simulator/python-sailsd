@@ -1,5 +1,6 @@
 import socket
 import math
+from functools import wraps
 
 from .sailsd import Sailsd
 
@@ -10,7 +11,10 @@ class Wind(object):
 
     :param sailsd: an instance of ``sailsd.Sailsd`` to use instead of creating a
                    new instance
-    :type sailsd: ``sailsd.Sailsd``
+    :param auto_update: whether to automatically request updated values on each
+                        attribute request. Setting this to True makes using
+                        ``update()`` redundant.
+    :type auto_update: bool
     '''
 
     _attrs = (
@@ -18,9 +22,11 @@ class Wind(object):
               'wind-angle',
             )
 
-    def __init__(self, sailsd=None):
+    def __init__(self, sailsd=None, auto_update=False):
         self.sailsd = sailsd or Sailsd()
         self.status = 'not connected'
+
+        self.auto_update = auto_update
 
         self.values = {}
 
@@ -29,7 +35,16 @@ class Wind(object):
 
         self.update()
 
+    def _auto_update(f):
+        @wraps(f)
+        def dec(self) :
+            if self.auto_update:
+                self.update()
+            return f(self)
+        return dec
+
     @property
+    @_auto_update
     def speed(self):
         '''
         Speed of wind in meters per second.
@@ -41,6 +56,7 @@ class Wind(object):
         self.sailsd.set(wind_speed=angle)
 
     @property
+    @_auto_update
     def angle(self):
         '''
         Angle of wind direction in radians. A value of 0 is a movement of wind
