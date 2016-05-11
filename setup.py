@@ -9,7 +9,7 @@ with open('README.rst') as file_readme:
     readme = file_readme.read()
 
 setup(name='sailsd',
-      version='0.1.0',
+      version='0.2.0',
       description='Python library to make interacting with the sailsd API easy',
       long_description=readme,
       author='Louis Taylor',
