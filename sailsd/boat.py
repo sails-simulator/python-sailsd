@@ -38,6 +38,7 @@ class Boat(object):
               'rudder-angle',
               'sail-angle',
               'speed',
+              'sheet-length',
             )
 
     def __init__(self, sailsd=None, auto_update=False):
@@ -108,10 +109,20 @@ class Boat(object):
         '''Angle of the sail, measured in radians where 0 is the sail pulled to
         the exact center of the boat'''
         return self.values.get('sail-angle')
+    
+    @property
+    @_auto_update
+    def sheet_length(self):
+        '''length of the sheet, between 0 and 1'''
+        return self.values.get('sheet-length')
 
     @sail_angle.setter
     def sail_angle(self, angle):
         self.sailsd.set(sail_angle=angle)
+        
+    @sheet_length.setter
+    def sheet_length(self, length):
+        self.sailsd.set(sheet_length=length)        
 
     @property
     @_auto_update
