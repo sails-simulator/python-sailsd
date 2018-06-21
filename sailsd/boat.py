@@ -112,6 +112,10 @@ class Boat(object):
     @sail_angle.setter
     def sail_angle(self, angle):
         self.sailsd.set(sail_angle=angle)
+        
+    @sheet_length.setter
+    def sheet_length(self, length):
+        self.sailsd.set(sheet_length=length)        
 
     @property
     @_auto_update
