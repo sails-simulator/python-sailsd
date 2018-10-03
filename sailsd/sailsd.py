@@ -2,6 +2,16 @@ import json
 import socket
 
 class Sailsd(object):
+
+    def __init__(self, host = 'localhost', port = 3333):
+        '''Constructor
+        Args: 
+          host (string) Sailsd host/ip. Defaults to 'localhost'
+          port (int)    Sailsd port. Defaults to 3333
+        '''
+        self.host = host
+        self.port = port
+
     '''
     Low-level control to the sailsd API. Not much is defined here, just direct
     interaction to the API.
@@ -9,7 +19,7 @@ class Sailsd(object):
     def _send_message_bytes(self, msg):
         #TODO assert that msg is bytes
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect(('localhost', 3333))
+        s.connect((self.host, self.port))
 
         response = b''
 
