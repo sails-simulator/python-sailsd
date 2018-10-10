@@ -144,8 +144,9 @@ class Boat(object):
             '''
         try:
             res = self.sailsd.request(*self._attrs)
-        except socket.error:
+        except socket.error as e:
             self.status = 'not connected'
+            raise
         else:
             self.status = 'connected'
             self.values.update(res)
